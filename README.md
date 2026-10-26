@@ -83,10 +83,11 @@
 │           ├── frontend/                 # 17 个前台页面
 │           ├── backend/                  # 25 个后台页面
 │           └── auth/                     # 登录 / 注册 / 统一认证页
-├── db/
-│   └── init.sql                          # 建库 + 19 张表 + 初始数据（79 KB）
+├── sql/
+│   └── init.sql                              # 建库 + 19 张表 + 初始数据（79 KB）
 ├── README.md
-├── 启动说明.md
+├── docs/
+│   └── 启动说明.md
 ├── .env.example
 └── .gitignore
 ```
@@ -95,7 +96,7 @@
 
 ## 快速开始
 
-> 完整步骤与常见问题见 **[启动说明.md](启动说明.md)**，下面是精简版。
+> 完整步骤与常见问题见 **[docs/启动说明.md](docs/启动说明.md)**，下面是精简版。
 
 ### 1. 环境要求
 
@@ -110,7 +111,7 @@
 ### 2. 导入数据库
 
 ```bash
-mysql -u root -p < db/init.sql
+mysql -u root -p < sql/init.sql
 ```
 
 脚本会 `DROP DATABASE IF EXISTS kb251018` 再重建，**执行前确认这个库里没有你要保留的数据**。
@@ -239,7 +240,7 @@ registry.addInterceptor(jwtInterceptor)
 
 ## 数据库
 
-`db/init.sql` 创建 19 张表，与实体一一对应：
+`sql/init.sql` 创建 19 张表，与实体一一对应：
 
 ```
 user  house  house_type  house_comment  favorite  user_behavior
