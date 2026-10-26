@@ -67,9 +67,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 配置JWT拦截器
+        // 注意：不能再写 excludePathPatterns("/api/**")。
+        // addPathPatterns 与 excludePathPatterns 同为 /api/** 时排除规则优先，
+        // 会导致拦截器对所有请求都不执行，鉴权完全失效。
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns(API_PREFIX + "/**")    // 拦截所有API请求
-                .excludePathPatterns("/api/**")
-                .excludePathPatterns(PUBLIC_PATHS);     // 排除公开接口
+                .excludePathPatterns(PUBLIC_PATHS);     // 仅排除公开接口
     }
 }

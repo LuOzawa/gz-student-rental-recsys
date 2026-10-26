@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.example.springboot.common.Result;
 import org.example.springboot.entity.User;
-import org.example.springboot.DTO.UserPasswordUpdateDTO;
+import org.example.springboot.dto.UserPasswordUpdateDTO;
 import org.example.springboot.mapper.UserMapper;
 import org.example.springboot.service.UserService;
 import org.example.springboot.util.JwtTokenUtils;
@@ -48,6 +48,10 @@ public class UserController {
     @PostMapping("/login")
     public Result<?> login(@RequestBody User user) {
         User loginUser = userService.login(user);
+        if (loginUser != null) {
+            // 不要把密码哈希返回给前端
+            loginUser.setPassword(null);
+        }
         return Result.success(loginUser);
     }
 

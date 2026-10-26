@@ -5,6 +5,8 @@ import org.example.springboot.common.Result;
 import org.example.springboot.common.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -39,6 +41,25 @@ public class GlobalExceptionHandler {
     public Result<?> handleConstraintViolationException(ConstraintViolationException e) {
         log.error(e.getMessage(), e);
         return Result.error(ResultCode.VALIDATE_FAILED.getCode(), e.getMessage());
+    }
+
+    /**
+     * 权限不足：@PreAuthorize 拒绝时抛出 AccessDeniedException。
+     * 不加这段会被下面的 Exception 兜底成 500 "系统错误"，前端无法区分。
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public Result<?> handleAccessDenied(AccessDeniedException e) {
+        log.warn("权限不足: {}", e.getMessage());
+        return new Result<>(ResultCode.FORBIDDEN.getCode(), "无权访问该接口");
+    }
+
+    /**
+     * 认证失败。
+     */
+    @ExceptionHandler(AuthenticationException.class)
+    public Result<?> handleAuthentication(AuthenticationException e) {
+        log.warn("认证失败: {}", e.getMessage());
+        return new Result<>(ResultCode.UNAUTHORIZED.getCode(), "请先登录");
     }
 
     /**

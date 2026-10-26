@@ -45,8 +45,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        // 原实现为 allowedOrigins("*")，任意站点均可跨域读取响应。
+        // 改为可配置白名单，默认仅本地开发端口。
+        String origins = System.getProperty("app.cors.allowed-origins",
+                System.getenv().getOrDefault("CORS_ALLOWED_ORIGINS",
+                        "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000"));
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOriginPatterns(java.util.Arrays.stream(origins.split(","))
+                        .map(String::trim).filter(o -> !o.isEmpty()).toArray(String[]::new))
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .maxAge(3600);
