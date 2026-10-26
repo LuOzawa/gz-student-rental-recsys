@@ -1,5 +1,9 @@
 # 广州大学生租房推荐系统
 
+[![CI](https://github.com/LuOzawa/gz-student-rental-recsys/actions/workflows/ci.yml/badge.svg)](https://github.com/LuOzawa/gz-student-rental-recsys/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+
 面向广州高校学生的租房平台，**Spring Boot 3 + Vue 3 前后端分离**。除常规的房源发布、预约看房、
 在线签约外，核心是**租房推荐引擎**：基于物品/用户的协同过滤、余弦相似度与校园位置距离，
 为每个学生生成个性化房源排序。
