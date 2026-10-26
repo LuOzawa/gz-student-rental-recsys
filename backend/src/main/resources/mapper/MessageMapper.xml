@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.springboot.mapper.MessageMapper">
+
+    <resultMap id="BaseResultMap" type="org.example.springboot.entity.Message">
+        <id column="id" property="id"/>
+        <result column="sender_id" property="senderId"/>
+        <result column="receiver_id" property="receiverId"/>
+        <result column="content" property="content"/>
+        <result column="related_type" property="relatedType"/>
+        <result column="related_id" property="relatedId"/>
+        <result column="is_read" property="isRead"/>
+        <result column="read_time" property="readTime"/>
+        <result column="is_deleted_by_sender" property="isDeletedBySender"/>
+        <result column="is_deleted_by_receiver" property="isDeletedByReceiver"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="getConversation" resultMap="BaseResultMap">
+        SELECT * FROM message
+        WHERE ((sender_id = #{userId1} AND receiver_id = #{userId2})
+               OR (sender_id = #{userId2} AND receiver_id = #{userId1}))
+          AND NOT ((sender_id = #{userId1} AND is_deleted_by_sender = 1)
+               OR (receiver_id = #{userId1} AND is_deleted_by_receiver = 1))
+        ORDER BY create_time ASC
+    </select>
+
+    <select id="getUnreadCount" resultType="int">
+        SELECT COUNT(*) FROM message
+        WHERE receiver_id = #{userId} AND is_read = 0 AND is_deleted_by_receiver = 0
+    </select>
+
+    <select id="getRecentConversations" resultMap="BaseResultMap">
+        SELECT m1.* FROM message m1
+        INNER JOIN (
+            SELECT
+                LEAST(sender_id, receiver_id) as user1,
+                GREATEST(sender_id, receiver_id) as user2,
+                MAX(create_time) as max_time
+            FROM message
+            WHERE (sender_id = #{userId} OR receiver_id = #{userId})
+              AND NOT ((sender_id = #{userId} AND is_deleted_by_sender = 1)
+                   OR (receiver_id = #{userId} AND is_deleted_by_receiver = 1))
+            GROUP BY LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id)
+        ) m2 ON LEAST(m1.sender_id, m1.receiver_id) = m2.user1
+            AND GREATEST(m1.sender_id, m1.receiver_id) = m2.user2
+            AND m1.create_time = m2.max_time
+        ORDER BY m1.create_time DESC
+    </select>
+
+    <update id="markAsRead">
+        UPDATE message SET is_read = 1, read_time = NOW()
+        WHERE sender_id = #{senderId} AND receiver_id = #{receiverId} AND is_read = 0
+    </update>
+
+</mapper>

@@ -1,0 +1,527 @@
+/* 认证相关页面通用样式 - 青春活力 Z世代风格 */
+@import './design-system.scss';
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+
+  /* 动态背景装饰 */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 500px;
+    height: 500px;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    background: var(--color-primary-gradient);
+    opacity: 0.08;
+    filter: blur(80px);
+    animation: float 12s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    background: var(--color-secondary-gradient);
+    opacity: 0.1;
+    filter: blur(60px);
+    animation: float 10s ease-in-out infinite reverse;
+    z-index: 0;
+  }
+}
+
+.auth-box {
+  display: flex;
+  flex-direction: row;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  width: 1000px;
+  max-width: 100%;
+  min-height: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--color-border-light);
+}
+
+/* 左侧样式 - 品牌与插画区域 */
+.auth-left {
+  width: 45%;
+  padding: 48px;
+  background: var(--color-primary-gradient);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  /* 装饰性图案 */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* 动态漂浮元素 */
+  .floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+
+    .float-item {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.3;
+      animation: float 6s ease-in-out infinite;
+
+      &:nth-child(1) {
+        top: 15%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      &:nth-child(2) {
+        top: 25%;
+        right: 15%;
+        animation-delay: -2s;
+        font-size: 20px;
+      }
+
+      &:nth-child(3) {
+        bottom: 30%;
+        left: 20%;
+        animation-delay: -4s;
+        font-size: 28px;
+      }
+
+      &:nth-child(4) {
+        bottom: 20%;
+        right: 10%;
+        animation-delay: -1s;
+        font-size: 18px;
+      }
+
+      &:nth-child(5) {
+        top: 50%;
+        left: 50%;
+        animation-delay: -3s;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .auth-illustration {
+    width: 85%;
+    max-height: 220px;
+    margin-bottom: 32px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
+  }
+
+  .auth-brand {
+    text-align: center;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+
+    .brand-title {
+      font-family: $font-display;
+      font-size: 36px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .brand-subtitle {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0 auto 32px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .brand-feature {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      width: 100%;
+
+      .feature-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .feature-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: var(--radius-lg);
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 10px;
+          color: white;
+          font-size: 20px;
+          transition: all var(--transition-base);
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+          }
+
+          .el-icon {
+            font-size: 20px;
+          }
+        }
+
+        .feature-text {
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.9);
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+/* 右侧样式 - 表单区域 */
+.auth-right {
+  width: 55%;
+  padding: 48px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--color-bg-secondary);
+  overflow-y: auto;
+  position: relative;
+
+  /* 自定义滚动条样式 */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+
+    &:hover {
+      background: var(--color-text-tertiary);
+    }
+  }
+}
+
+.auth-header {
+  text-align: left;
+  margin-bottom: 32px;
+
+  .title {
+    font-family: $font-display;
+    font-size: 32px;
+    color: var(--color-text-primary);
+    margin: 0 0 8px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--color-text-tertiary);
+    font-weight: 400;
+  }
+}
+
+.auth-form {
+  width: 100%;
+
+  /* 覆盖 Element Plus 表单样式 */
+  :deep(.el-form-item) {
+    margin-bottom: 20px;
+  }
+
+  :deep(.el-input__wrapper) {
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    box-shadow: none;
+    border: 2px solid var(--color-border);
+    background: var(--color-bg-primary);
+    transition: all var(--transition-base);
+
+    &:hover {
+      border-color: var(--color-primary-light);
+    }
+
+    &.is-focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+    }
+
+    .el-input__inner {
+      font-size: 15px;
+      color: var(--color-text-primary);
+    }
+
+    .el-input__prefix {
+      font-size: 18px;
+      color: var(--color-text-tertiary);
+    }
+  }
+
+  :deep(.el-input-number) {
+    width: 100%;
+
+    .el-input__wrapper {
+      padding: 12px 16px;
+    }
+  }
+
+  :deep(.el-select) {
+    width: 100%;
+
+    .el-input__wrapper {
+      padding: 12px 16px;
+    }
+  }
+
+  :deep(.el-radio-group) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  :deep(.el-radio) {
+    margin: 0;
+    margin-right: 0;
+
+    .el-radio__input {
+      display: none;
+    }
+
+    .el-radio__label {
+      padding: 10px 18px;
+      background: var(--color-bg-primary);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      transition: all var(--transition-base);
+    }
+
+    &.is-checked {
+      .el-radio__label {
+        background: var(--color-primary-gradient);
+        border-color: transparent;
+        color: white;
+      }
+    }
+
+    &:hover:not(.is-checked) {
+      .el-radio__label {
+        border-color: var(--color-primary-light);
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  :deep(.el-date-editor) {
+    width: 100%;
+  }
+
+  :deep(.el-divider) {
+    margin: 24px 0;
+    border-top-color: var(--color-border-light);
+
+    .el-divider__text {
+      background: transparent;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      padding: 0 12px;
+    }
+  }
+}
+
+.auth-button {
+  width: 100%;
+  height: 50px;
+  margin-top: 8px;
+  border-radius: var(--radius-full);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: $font-display;
+  background: var(--color-primary-gradient);
+  border: none;
+  box-shadow: 0 4px 16px rgba(255, 107, 107, 0.3);
+  transition: all var(--transition-base);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255, 107, 107, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.is-loading {
+    opacity: 0.8;
+  }
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-light);
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: color var(--transition-base);
+
+    &:hover {
+      color: var(--color-primary-dark);
+    }
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 900px) {
+  .auth-box {
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+    min-height: auto;
+  }
+
+  .auth-left {
+    width: 100%;
+    padding: 40px 32px;
+    min-height: 280px;
+
+    .auth-illustration {
+      max-height: 160px;
+      margin-bottom: 24px;
+    }
+
+    .auth-brand {
+      .brand-title {
+        font-size: 28px;
+      }
+
+      .brand-subtitle {
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+
+      .brand-feature {
+        gap: 16px;
+
+        .feature-item {
+          .feature-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+          }
+
+          .feature-text {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+
+    .floating-elements {
+      display: none;
+    }
+  }
+
+  .auth-right {
+    width: 100%;
+    padding: 40px 32px;
+  }
+
+  .auth-header {
+    margin-bottom: 24px;
+
+    .title {
+      font-size: 26px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 12px;
+  }
+
+  .auth-left {
+    padding: 32px 24px;
+  }
+
+  .auth-right {
+    padding: 32px 24px;
+  }
+
+  .auth-header {
+    .title {
+      font-size: 24px;
+    }
+  }
+}
+
+/* 过渡动画 */
+.auth-form-enter-active,
+.auth-form-leave-active {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.auth-form-enter-from {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.auth-form-leave-to {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
+}

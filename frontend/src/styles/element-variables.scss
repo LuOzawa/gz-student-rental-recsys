@@ -1,0 +1,244 @@
+/* 只需要重写你需要的即可 */
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+
+  'primary': (
+
+    'base': #3B82F6,
+
+  ),
+
+  'success': (
+
+    'base': #10B981,
+
+  ),
+
+  'warning': (
+
+    'base': #F97316,
+
+  ),
+
+  'danger': (
+
+    'base': #F56C6C,
+
+  ),
+
+  'info': (
+
+    'base': #909399,
+
+  )
+
+),
+
+);
+
+
+@use "element-plus/theme-chalk/src/index.scss" as *;
+
+// 设置全局背景色与文本颜色
+body {
+  background-color: #F8FAFC;
+  color: #333;
+}
+
+// 卡片样式 - 现代冰川美学
+.el-card {
+  background-color: #FFFFFF;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.08) !important;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.12) !important;
+  }
+}
+
+.el-select{
+  width: 150px !important;
+}
+
+// switch 样式覆盖
+.el-switch__core .el-switch__action{
+  border-radius: 50% !important;
+}
+
+// 按钮样式 - 动态交互规范
+.el-button--primary {
+  background-color: #3B82F6;
+  border-color: #3B82F6;
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: rgba(59, 130, 246, 0.8);
+    border-color: rgba(59, 130, 246, 0.8);
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.2);
+  }
+  
+  &:active {
+    background-color: #2563EB;
+    border-color: #2563EB;
+    transform: scale(0.98);
+  }
+}
+
+// radio 样式覆盖
+.el-radio__inner {
+  border-radius: 50% !important;
+  border-color: #CBD5E1;
+  
+  &::after {
+    border-radius: 50% !important;
+    background-color: #3B82F6;
+  }
+}
+
+.el-radio__input.is-checked .el-radio__inner {
+  border-color: #3B82F6;
+  background-color: #FFFFFF;
+}
+
+// 对话框样式
+.el-dialog {
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.12) !important;
+  
+  .el-dialog__header {
+    margin: 0;
+    padding: 20px 24px;
+    border-bottom: 1px solid #E9ECEF;
+    
+    .el-dialog__title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1D4ED8;
+    }
+  }
+  
+  .el-dialog__body {
+    padding: 24px;
+    background-color: #FFFFFF;
+  }
+  
+  .el-dialog__footer {
+    padding: 16px 24px;
+    border-top: 1px solid #E9ECEF;
+  }
+}
+
+// 表格样式 - 冰川美学
+.el-table {
+  background-color: #FFFFFF;
+  
+  th {
+    background-color: #EFF6FF !important;
+    color: #1D4ED8;
+    font-weight: 500;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #EFF6FF;
+  }
+  
+  td {
+    border-bottom: 1px solid #E9ECEF;
+  }
+}
+
+// 表单样式覆盖
+.el-form {
+  // 表单项样式
+  .el-form-item {
+    margin-bottom: 24px;
+    
+    // 表单标签样式
+    .el-form-item__label {
+      font-weight: 500;
+      color: #1D4ED8;
+      padding-bottom: 8px;
+    }
+    
+    // 错误提示样式
+    .el-form-item__error {
+      padding-top: 4px;
+      color: #F56C6C;
+    }
+  }
+}
+
+// 输入框样式
+.el-input {
+  .el-input__wrapper {
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 1px #E9ECEF inset;
+    transition: all 0.2s;
+    border-radius: 4px;
+    
+    &:hover {
+      box-shadow: 0 0 0 1px #3B82F6 inset;
+    }
+    
+    &.is-focus {
+      box-shadow: 0 0 0 1px #3B82F6 inset !important;
+    }
+  }
+  
+  // 禁用状态样式
+  &.is-disabled .el-input__wrapper {
+    background-color: #F8FAFC;
+    box-shadow: 0 0 0 1px #E9ECEF inset;
+  }
+}
+
+// 标签样式
+.el-tag {
+  &.el-tag--info {
+    background-color: #EFF6FF;
+    border-color: #EFF6FF;
+    color: #1D4ED8;
+  }
+  
+  &.el-tag--success {
+    background-color: rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.2);
+    color: #10B981;
+  }
+  
+  &.el-tag--warning {
+    background-color: rgba(249, 115, 22, 0.1);
+    border-color: rgba(249, 115, 22, 0.2);
+    color: #F97316;
+  }
+}
+
+// 表单内按钮组样式
+.el-form-item__content {
+  .el-button + .el-button {
+    margin-left: 12px;
+  }
+}
+
+// 必填星号样式
+.el-form-item.is-required:not(.is-no-asterisk) > .el-form-item__label:before {
+  color: #F56C6C;
+}
+
+// 分页样式
+.el-pagination {
+  .el-pagination__total {
+    color: #1D4ED8;
+  }
+  
+  .el-pager li {
+    &.is-active {
+      background-color: #3B82F6;
+      color: #FFFFFF;
+    }
+    
+    &:hover {
+      color: #3B82F6;
+    }
+  }
+}

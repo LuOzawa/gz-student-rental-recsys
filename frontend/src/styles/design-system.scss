@@ -1,0 +1,338 @@
+// ============================================
+// 🎨 广寓租房 - 设计系统 Design System
+// 风格：青春活力 Z世代 + 编辑杂志
+// ============================================
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+// ==================== 颜色系统 ====================
+:root {
+  // 主色调 - 珊瑚橙活力系
+  --color-primary: #FF6B6B;
+  --color-primary-light: #FF8E8E;
+  --color-primary-dark: #E84545;
+  --color-primary-gradient: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+
+  // 辅色调 - 薄荷绿清新系
+  --color-secondary: #4ECDC4;
+  --color-secondary-light: #7EDDD6;
+  --color-secondary-dark: #3DB5AC;
+  --color-secondary-gradient: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+
+  // 强调色 - 柠檬黄
+  --color-accent: #FFE66D;
+  --color-accent-light: #FFF0A0;
+
+  // 中性色
+  --color-bg-primary: #FAFBFC;
+  --color-bg-secondary: #FFFFFF;
+  --color-bg-tertiary: #F0F2F5;
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #4A4A68;
+  --color-text-tertiary: #8B8B9E;
+  --color-border: #E8ECF0;
+  --color-border-light: #F0F2F5;
+
+  // 功能色
+  --color-success: #4ECDC4;
+  --color-warning: #FFE66D;
+  --color-error: #FF6B6B;
+  --color-info: #74B9FF;
+
+  // 阴影
+  --shadow-sm: 0 2px 8px rgba(26, 26, 46, 0.04);
+  --shadow-md: 0 4px 16px rgba(26, 26, 46, 0.08);
+  --shadow-lg: 0 8px 32px rgba(26, 26, 46, 0.12);
+  --shadow-xl: 0 16px 48px rgba(26, 26, 46, 0.16);
+  --shadow-colored: 0 8px 24px rgba(255, 107, 107, 0.25);
+
+  // 圆角
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+
+  // 间距
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  // 动画
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+// ==================== 字体系统 ====================
+$font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-body: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+// 字体大小
+$font-xs: 12px;
+$font-sm: 14px;
+$font-md: 16px;
+$font-lg: 18px;
+$font-xl: 20px;
+$font-2xl: 24px;
+$font-3xl: 30px;
+$font-4xl: 36px;
+$font-5xl: 48px;
+$font-6xl: 60px;
+
+// ==================== 全局样式 ====================
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-body;
+  font-size: $font-md;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// ==================== 工具类 ====================
+.gradient-text {
+  background: var(--color-primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: var(--color-primary-gradient);
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+// ==================== 卡片样式 ====================
+.card-styled {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border-light);
+  transition: all var(--transition-base);
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+}
+
+.card-creative {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  transition: all var(--transition-base);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--color-primary-gradient);
+    border-radius: var(--radius-xl);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  &:hover {
+    &::before {
+      opacity: 1;
+    }
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-colored);
+  }
+}
+
+// ==================== 按钮样式 ====================
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-family: $font-display;
+  font-weight: 600;
+  font-size: $font-md;
+  color: white;
+  background: var(--color-primary-gradient);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  font-family: $font-display;
+  font-weight: 600;
+  font-size: $font-md;
+  color: var(--color-primary);
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-base);
+
+  &:hover {
+    background: var(--color-primary);
+    color: white;
+  }
+}
+
+// ==================== 动画关键帧 ====================
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+// ==================== 装饰性背景图案 ====================
+.pattern-dots {
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.pattern-grid {
+  background-image:
+    linear-gradient(var(--color-border-light) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border-light) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.pattern-waves {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30 Q15 20 30 30 T60 30' fill='none' stroke='%23E8ECF0' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+}
+
+// ==================== 有机形态装饰 ====================
+.blob {
+  position: absolute;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.blob-1 {
+  width: 300px;
+  height: 300px;
+  background: var(--color-primary-gradient);
+  opacity: 0.1;
+  filter: blur(60px);
+}
+
+.blob-2 {
+  width: 200px;
+  height: 200px;
+  background: var(--color-secondary-gradient);
+  opacity: 0.15;
+  filter: blur(50px);
+  animation-delay: -2s;
+}
+
+.blob-3 {
+  width: 150px;
+  height: 150px;
+  background: var(--color-accent);
+  opacity: 0.2;
+  filter: blur(40px);
+  animation-delay: -4s;
+}

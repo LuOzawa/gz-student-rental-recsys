@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.springboot.mapper.UserBehaviorMapper">
+
+    <select id="getUserViewedHouses" resultType="java.util.Map">
+        SELECT target_id as houseId, COUNT(*) as viewCount
+        FROM user_behavior
+        WHERE user_id = #{userId} AND behavior_type = 'view' AND target_type = 'house'
+        GROUP BY target_id
+        ORDER BY viewCount DESC
+    </select>
+
+    <select id="getUserFavoriteHouseIds" resultType="java.lang.Long">
+        SELECT house_id FROM favorite WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
+    <select id="getUserSearchKeywords" resultType="java.lang.String">
+        SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(behavior_data, '$.keyword')) as keyword
+        FROM user_behavior
+        WHERE user_id = #{userId}
+          AND behavior_type = 'search'
+          AND behavior_data IS NOT NULL
+          AND JSON_VALID(behavior_data) = 1
+          AND JSON_EXTRACT(behavior_data, '$.keyword') IS NOT NULL
+        ORDER BY create_time DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="getSimilarHousesByBehavior" resultType="java.lang.Long">
+        SELECT DISTINCT ub.target_id
+        FROM user_behavior ub
+        INNER JOIN house h ON ub.target_id = h.id
+        WHERE ub.behavior_type IN ('view', 'favorite')
+          AND ub.target_type = 'house'
+          AND ub.target_id != #{houseId}
+          AND h.status = 1 AND h.audit_status = 1
+        GROUP BY ub.target_id
+        ORDER BY COUNT(*) DESC
+        LIMIT 20
+    </select>
+
+    <select id="getHotHouses" resultType="java.lang.Long">
+        SELECT target_id
+        FROM user_behavior
+        WHERE behavior_type = 'view'
+          AND target_type = 'house'
+          AND create_time >= DATE_SUB(NOW(), INTERVAL #{days} DAY)
+        GROUP BY target_id
+        ORDER BY COUNT(*) DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="getUserAppointmentHouseIds" resultType="java.lang.Long">
+        SELECT DISTINCT house_id
+        FROM appointment
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="getActiveUserIds" resultType="java.lang.Long">
+        SELECT DISTINCT user_id
+        FROM user_behavior
+        WHERE create_time >= DATE_SUB(NOW(), INTERVAL #{days} DAY)
+        ORDER BY user_id
+    </select>
+
+</mapper>
